@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Accordion Demo | Josh Lawton</title>
+	<style>
+		body {
+			margin: 10em;
+		}
+
+		#accordion div {
+			-webkit-transition: all 0.5s ease-in-out;
+			-moz-transition: all 0.5s ease-in-out;
+			-o-transition: all 0.5s ease-in-out;
+			-ms-transition: all 0.5s ease-in-out;	
+			transition: all 0.5s ease-in-out;
+		}
+
+		#accordion {
+			margin-bottom: 30px;
+		}
+		
+		#accordion header {
+			font-size: 1.25em;
+			background-color: rgba(0,0,255,0.25);
+			color: #000;
+			margin: 0;
+			padding: 0.1em 0.2em;
+			cursor: pointer;
+		}
+		
+		#accordion section {
+			border: 1px #333 solid;
+		}
+
+		#accordion section > div {
+			overflow: hidden;
+			height: 220px;
+			padding: 0.1em 0.2em;
+			margin: 0;
+		}
+
+		#accordion section > div.hide {
+			height: 0;
+		}
+	</style>
+</head>
+<body>
+<div id="accordion">
+	<section id="section-01">
+		<header>Section One</header>
+		<div>
+			<p>Duis vitae mauris nibh, vel laoreet est. Vestibulum consequat molestie orci, id elementum metus placerat vitae. Quisque ligula odio, euismod et ultrices tempus, cursus a nulla. Fusce et sapien tortor. Nulla tincidunt condimentum arcu non tincidunt. Integer convallis, libero sit amet pharetra sagittis, ipsum velit tempus ante, a dignissim nisl dolor eget nibh. Nullam commodo eros et nunc facilisis imperdiet. Morbi pellentesque fringilla imperdiet. Suspendisse eget elit quis purus fringilla sodales at at neque. Vestibulum eget sollicitudin nisi. Fusce dictum molestie ligula non dictum. Etiam sed varius urna. Donec lacinia tellus et ante semper non tempus est venenatis. Suspendisse quam felis, bibendum vitae porta id, hendrerit ut justo. Mauris in purus purus.</p>
+			<p>Nulla facilisi. Integer turpis justo, gravida id accumsan eget, viverra sit amet risus. Suspendisse eleifend eros ut sem sollicitudin a lobortis justo dignissim. Aliquam bibendum tincidunt sollicitudin. Maecenas vel velit non libero porttitor sollicitudin. Pellentesque aliquam accumsan felis, ac congue ipsum vestibulum et. Maecenas euismod velit id nunc lobortis eleifend interdum neque luctus.</p>
+		</div>
+	</section>
+	<section id="section-02">
+		<header>The Second Section</header>
+		<div>
+			<p>Cras pharetra mauris id mauris fringilla tempus. Sed molestie arcu vitae ligula commodo id pulvinar est fringilla. Proin turpis dolor, ornare eget sagittis quis, eleifend non justo. Aliquam ipsum tortor, imperdiet ut placerat eu, ullamcorper id velit. Cras sagittis ligula vel lorem mattis cursus vestibulum velit dictum. Donec eget odio laoreet eros posuere placerat. Etiam auctor lacus eu turpis feugiat nec convallis nisl varius. Ut condimentum eros eget leo interdum vel lobortis odio vestibulum.</p>
+			<p>Mauris porta, orci non rutrum mattis, enim nisl adipiscing lectus, eu malesuada ligula risus in enim. Pellentesque velit nisl, dignissim vitae lacinia a, ullamcorper at ipsum. Aliquam sit amet lacus eu enim semper sollicitudin ut id dolor. Sed pulvinar dignissim purus id viverra. Nulla vehicula dolor eget purus aliquet varius. Fusce a mi velit. Cras facilisis egestas placerat. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vel dui urna.</p>
+		</div>
+	</section>
+	<section id="section-03">
+		<header>Section III</header>
+		<div>
+			<p>Vivamus hendrerit massa eget augue rhoncus feugiat. Pellentesque mattis purus non justo lacinia vitae rutrum arcu fermentum. Proin nisl sem, sollicitudin vitae pharetra quis, faucibus eget justo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin at mi ipsum. Curabitur fermentum viverra leo, vitae cursus ante pellentesque id. Duis augue elit, bibendum ut porta vel, elementum eget turpis. Donec ac dui lorem. Mauris egestas ullamcorper odio non faucibus. Donec pharetra, elit eu volutpat aliquet, nisi nisl consequat purus, ut condimentum massa velit et enim. Nulla quis congue mi. Aenean ultrices turpis non turpis porttitor in ullamcorper urna luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed porttitor, erat ac adipiscing condimentum, orci ligula consequat magna, eu laoreet tellus turpis hendrerit lorem.</p>
+			<p>In in lacus ut magna faucibus congue. Aliquam feugiat vestibulum cursus. Vestibulum dictum tempus mollis. Ut convallis ipsum at nisi volutpat dictum. Vestibulum ac nibh sit amet neque malesuada tempor. Morbi bibendum lectus at arcu pulvinar pharetra. Duis in molestie sapien. Praesent et ligula et erat commodo lacinia. Vestibulum eu quam ante. Suspendisse tincidunt tortor nec leo sollicitudin pretium. Integer malesuada consequat tortor, id vestibulum tortor lacinia non. Aliquam rutrum sem nibh. Morbi id enim arcu, at volutpat justo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+		</div>
+	</section>
+</div>
+<script>
+var accordion = (function () {
+	var accordionSections = document.querySelectorAll("#accordion section"),
+		accordionSectionsLength = accordionSections.length - 1;
+
+	function collapseContent() {
+		for (var i = accordionSectionsLength; i >= 0; i -= 1) {
+			accordionSections[i].children[1].classList.add("hide");
+		}
+	}
+
+	function getCurrentTimestamp() {
+		var request = new XMLHttpRequest();
+		request.open('GET', '/get-content.php', false); 
+		request.send(null);
+
+		if (request.status === 200) {
+			return request.responseText;
+		} else {
+			return "Unable to get the current timestamp.";
+		}
+	}
+
+	return {
+		init: function() {
+			for (var i = accordionSectionsLength; i >= 0; i -= 1) {
+				(function (index) {
+					accordionSections[index].childNodes[1].addEventListener("click", function() {
+						collapseContent();
+
+						this.parentElement.children[1].classList.remove("hide");
+						
+						this.parentElement.children[1].getElementsByTagName("p")[1].innerHTML = getCurrentTimestamp();
+					})
+				})(i);
+			}
+
+			collapseContent();
+		}
+	}
+}());
+
+if (document.addEventListener) {
+    document.addEventListener("DOMContentLoaded", function() {
+        document.removeEventListener("DOMContentLoaded", arguments.callee, false);
+        accordion.init();
+    }, false);
+}
+else if (document.attachEvent) {
+    document.attachEvent("onreadystatechange", function() {
+        if (document.readyState === "complete") {
+            document.detachEvent("onreadystatechange", arguments.callee);
+            accordion.init();
+        }
+    });
+}
+</script>
+</body>
+</html>
